@@ -9,8 +9,7 @@
             <div class="panel panel-default">
                 <h1>Home page</h1>
                 @if($currentUser)
-                	Hello {{ $currentUser->fullname }}<br/>                  
-                	<img src="{{ asset('storage/'.$currentUser->avatar) }}" style="width:150px;height:auto" />
+                	Hello {{ $currentUser->name }}<br/>
                 @endif
                 You are in {{ App::getLocale() }}               
             </div>

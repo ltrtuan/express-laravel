@@ -1,4 +1,4 @@
-@if(Session::has('alert-success'))
+    @if(Session::has('alert-success'))
     	<p class="alert alert-success">{{ Session::get('alert-success') }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
     @endif
     @if(Session::has('alert-danger'))
@@ -28,7 +28,12 @@
         </div>
         <div class="form-group">
             {!! Form::label('role_id','Role:') !!}
-            {!! Form::select('role_id', ['2' => 'Manager', '3' => 'Super Admin'], '', ['class' => 'form-control']) !!}
+            @if($currentUser->role_id == 1)
+                {!! Form::select('role_id', ['2' => 'Manager', '1' => 'Super Admin'], '', ['class' => 'form-control']) !!}
+            @else
+                {!! Form::select('role_id', ['2' => 'Manager', '3' => 'Normal user'], '', ['class' => 'form-control']) !!}
+            @endif
+
             {!! $errors->first('role_id','<span class="error-input">:message</span>')  !!}
         </div>
     

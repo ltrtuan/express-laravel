@@ -39,10 +39,10 @@ class UserController extends Controller
         $this->middleware('auth', ['only' => [
             'logout',
             'profile',
+            'register'
         ]]);
 
-        $this->middleware('guest', ['only' => [         
-            'register',
+        $this->middleware('guest', ['only' => [ 
             'login',
             'showLinkRequestForm'
         ]]);
@@ -54,8 +54,9 @@ class UserController extends Controller
      * @return [type] [description]
      */
     public function register(){
+    	$currentUser = Auth::user();
         $template = view()->file(app_path('HtmlRender/registerForm.blade.php'));
-        return view('user.registerPage', compact('template'));
+        return view('user.registerPage', compact('template','currentUser'));
     }
     
 

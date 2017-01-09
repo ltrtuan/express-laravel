@@ -81,8 +81,7 @@ return [
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', 'echweb.database.windows.net'),
-            'port' => env('DB_PORT', '1433'),
+            'host' => env('DB_HOST', 'echweb.database.windows.net,1433'),            
             'database' => env('DB_DATABASE', 'walkappdb'),
             'username' => env('DB_USERNAME', 'ExpressAdmin'),
             'password' => env('DB_PASSWORD', 'NfAFr966gSHF72JR'),

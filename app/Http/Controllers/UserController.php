@@ -179,10 +179,13 @@ class UserController extends Controller
     {
         $request->merge(['password' => Hash::make($request->password)]);
         $user = User::create($request->all());
-        
+        $currentUser = Auth::user();
         if($user->id > 0)
         {            
-            if($user->role_id == 2){        
+            /**
+             * Just create new database, new table in case NEW MANAGER WAS CREATED BY SUPER ADMIN           
+             */
+            if($user->role_id == 2 && $currentUser->role_id == 1){        
             	CreateConnection::createTable(CreateConnection::getNameDatabaseUser($user->id));
         	}
             $request->session()->flash('alert-success', trans('users.create_user_success'));  

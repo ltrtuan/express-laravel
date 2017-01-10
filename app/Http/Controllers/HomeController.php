@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Media;
 use Illuminate\Support\Facades\Storage;
-use CreateConnection;
+
 class HomeController extends Controller
 {
     /**
@@ -28,10 +27,6 @@ class HomeController extends Controller
     {
         $currentUser = Auth::user();
         $userConnection = '';
-        if($currentUser->role_id == 2){
-            //CreateConnection::setupConnection();
-            CreateConnection::createTable(CreateConnection::getNameDatabaseUser($currentUser->id));
-        }
         
         return view('home.index',compact('currentUser','userConnection'));
     }

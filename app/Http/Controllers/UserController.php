@@ -13,7 +13,7 @@ use App\Models\User;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\CreateUserRequest;
-
+use CreateConnection;
 
 use Exception;
 
@@ -28,7 +28,9 @@ class UserController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
-
+    // public function redirectTo(){
+    // 	return redirect()->to('/');
+    // }
     /**
      * Create a new controller instance.
      *
@@ -103,7 +105,7 @@ class UserController extends Controller
          */
         if ($this->guard()->attempt($credentials, $request->has('remember'))) {
             $request->session()->flash('alert-success', trans('users.login_user_success'));  
-            $resultLogin =  $this->sendLoginResponse($request);
+            $resultLogin =  $this->sendLoginResponse($request);          
             return $resultLogin;
         }
 
@@ -129,6 +131,10 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * [username Return name of input store value NAME in database]
+     * @return [type] [description]
+     */
     public function username()
     {
         return 'username';
@@ -176,8 +182,11 @@ class UserController extends Controller
         
         if($user->id > 0)
         {            
+            if($user->role_id == 2){        
+            	CreateConnection::createTable(CreateConnection::getNameDatabaseUser($user->id));
+        	}
             $request->session()->flash('alert-success', trans('users.create_user_success'));  
-            return redirect()->route('login_path');
+            return redirect()->route('register_path');
         }
         $request->session()->flash('alert-danger', trans('users.create_user_fail'));  
         return redirect()->route('register_path');

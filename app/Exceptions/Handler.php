@@ -5,6 +5,8 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
+use OptionsHelper;
 
 class Handler extends ExceptionHandler
 {
@@ -43,7 +45,24 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
-    {
+    {   
+        if ($exception instanceof \Illuminate\Session\TokenMismatchException)
+        {
+            //redirect to a form. Here is an example of how I handle mine
+            return redirect($request->fullUrl())->with('alert-danger',trans('general.token_not_match'));
+        }
+        else if($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
+        {
+           return response()->view('errors.404', [], 404);
+        }
+        else if ($exception instanceof TooManyRequestsHttpException)
+        {
+            return Redirect::back()              
+                ->withErrors([
+                    'alert-danger' => trans('users.many_attempts'),
+            ]);
+        }
+
         return parent::render($request, $exception);
     }
 
@@ -58,8 +77,8 @@ class Handler extends ExceptionHandler
     {
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
-        }
-
-        return redirect()->guest('login');
+        }   
+    
+        return redirect()->guest('user/login');
     }
 }

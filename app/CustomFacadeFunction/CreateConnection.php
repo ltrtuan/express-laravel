@@ -12,7 +12,6 @@ class CreateConnection
     
      /**
 	 * Creates a new database schema.
-
 	 * @param  string $schemaName The new schema name.
 	 * @return bool
 	 */
@@ -26,6 +25,7 @@ class CreateConnection
 	public function createTable($nameDatabase)
 	{
 		//Artisan::call('migrate', array('database' => $this->databaseConnection, 'path' => 'app/database/subuser'));
+		$this->createSchema($nameDatabase);
 		$this->setupConnection($nameDatabase);
 		Artisan::call('migrate', array('--database' => $nameDatabase, '--path' => 'database/migrations/subuser'));
 		

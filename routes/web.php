@@ -24,15 +24,13 @@ Route::get('test', function(){
 	// $user =  new App\Models\User;
 	// $user->name = 'ltrtuan';
 	// $user->email = 'ltrtuan@gmail.com';
-	// $user->fullname = 'Tuan Le';
 	// $user->password = bcrypt('123456');
-	// $user->time_zone = '7';
-	// $user->country_id = '1';
-
+	// $user->parent = '0';
+	// $user->role_id = '1';
+	// $user->status = '1';
 	// $user->save();
-	// dd($user);
-	// 	// $user->created_at = new Carbon\Carbon::now();
-	// $user->updated_at = new Carbon\Carbon::now();
+	
+	
 });
 
 Route::group(['prefix' => 'user'], function () {

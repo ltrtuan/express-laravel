@@ -44,7 +44,8 @@ class UserController extends Controller
 
         $this->middleware('guest', ['only' => [ 
             'login',
-            'showLinkRequestForm'
+            'showLinkRequestForm', 
+            'loginForm'
         ]]);
 
     }
@@ -55,8 +56,8 @@ class UserController extends Controller
      */
     public function register(){
     	$currentUser = Auth::user();
-        $template = view()->file(app_path('HtmlRender/registerForm.blade.php'));
-        return view('user.registerPage', compact('template','currentUser'));
+        $template = view()->file(app_path('HtmlRender/registerForm.blade.php'),compact('currentUser') );
+        return view('user.registerPage', compact('template'));
     }
     
 

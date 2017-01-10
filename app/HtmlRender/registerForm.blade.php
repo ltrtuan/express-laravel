@@ -27,7 +27,7 @@
             {!! $errors->first('password_confirmation','<span class="error-input">:message</span>')  !!}
         </div>
         <div class="form-group">
-            {!! Form::label('role_id','Role:') !!}
+            {!! Form::label('role_id','Role:') !!}            
             @if($currentUser->role_id == 1)
                 {!! Form::select('role_id', ['2' => 'Manager', '1' => 'Super Admin'], '', ['class' => 'form-control']) !!}
             @else
@@ -40,6 +40,6 @@
     	<div class="form-group">
     		{!! Form::submit('Register', ['class' => 'btn btn-primary']) !!}
     	</div>
-    	
+    	{{ Form::hidden('parent', $currentUser->id) }}
         {{ Form::hidden('status', '1') }}
     {!! Form::close() !!}

@@ -8,6 +8,7 @@
 		
             <div class="panel panel-default">
                 <h1>Home page</h1>
+               
                 @if($currentUser)
                 	Hello {{ $currentUser->name }}<br/>
                 @endif

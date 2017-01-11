@@ -12,7 +12,7 @@
 */
 
 //Auth::routes();
-use App\Events\SomeEvent;
+//use App\Events\SomeEvent;
 Route::get('/', 'HomeController@index');
 Route::get('test', function(){	
 	//echo OptionsHelper::delete('site_url');
@@ -51,6 +51,9 @@ Route::group(['prefix' => 'user'], function () {
 	 */
 	Route::get('forgot-password',  ['as' => 'forgot_pass_path', 'uses' => 'ExtendUserController\ForgotPasswordController@showLinkRequestForm']);
 	Route::post('forgot-password',  ['as' => 'forgot_pass_path', 'uses' => 'ExtendUserController\ForgotPasswordController@sendResetLinkEmail']);
+
+	Route::get('reset-password/{token}',  ['as' => 'reset_pass_path', 'uses' => 'ExtendUserController\ResetPasswordController@showResetForm']);
+	Route::post('reset-password',  ['as' => 'reset_pass_path', 'uses' => 'ExtendUserController\ResetPasswordController@reset']);
 });
 
 // Route::get('/profile', 'UserController@showProfileForm');

@@ -24,24 +24,22 @@
 
         <nav>
             <div class="container">
-                <nav class="navbar navbar-light bg-faded">
-                  <a class="navbar-brand" href="#">Navbar</a>
+                <nav class="navbar navbar-light bg-faded">                
                   <ul class="nav navbar-nav">
                     <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
+                      <a class="nav-link" href="{{ route('login_path') }}">Login</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
+                      <a class="nav-link" href="{{ route('register_path') }}">Register</a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="http://example.com" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                      <a class="nav-link dropdown-toggle" href="#" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User</a>
                       <div class="dropdown-menu" aria-labelledby="supportedContentDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="{{ route('register_path') }}">Profile</a>
+                        <a class="dropdown-item" href="{{ route('logout_path') }}">Logout</a>                      
                       </div>
                     </li>
                   </ul>

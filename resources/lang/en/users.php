@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'create_user_success' => 'You have been created successfully.',
+    'create_user_success' => 'A new user have been created successfully.',
     'create_user_fail' => 'Have a problem when create user. Please try again.',
     'update_user_success' => 'You have been updated successfully.',
     'update_user_fail' => 'Updated fail. Please try again',
@@ -37,5 +37,7 @@ return [
     'fullname_format' => 'Full name is invalid format. Only accpept Alphabetic and Space characters.',
     'avatar' => 'Avatar',
     'many_attempts' => 'Too many failed login attempts!',
-    'remember_me' => 'Remember me'
+    'remember_me' => 'Remember me',
+    'forgot_pass_text' => 'Forgot password ?',
+    'back_to_login' => '< Back to login'
 ];

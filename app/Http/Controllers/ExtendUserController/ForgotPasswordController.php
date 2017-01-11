@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ExtendUserController;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
+
 class ForgotPasswordController extends Controller
 {
     /*
@@ -42,10 +43,14 @@ class ForgotPasswordController extends Controller
     {
         return view('user.forgotPassPage');
     }
+
+
+
     /**
-     * http://stackoverflow.com/questions/30290721/how-to-override-reset-and-validatepasswordwithdefaults-in-passwordbroker-laravel
-     * http://stackoverflow.com/questions/30290721/how-to-override-reset-and-validatepasswordwithdefaults-in-passwordbroker-laravel?rq=1
+     * http://stackoverflow.com/questions/30290721/how-to-override-reset-and-validatepasswordwithdefaults-in-passwordbroker-laravel    
      * https://laracasts.com/discuss/channels/general-discussion/laravel-5-password-reset-link-subject
      * https://laracasts.com/discuss/channels/general-discussion/laravel-5-password-broker?page=1
-     */
+     */ 
+    
 }
+

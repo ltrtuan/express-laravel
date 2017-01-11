@@ -13,6 +13,7 @@
 
 //Auth::routes();
 //use App\Events\SomeEvent;
+
 Route::get('/', 'HomeController@index');
 Route::get('test', function(){	
 	//echo OptionsHelper::delete('site_url');

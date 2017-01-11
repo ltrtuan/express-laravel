@@ -14,7 +14,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\CreateUserRequest;
 use CreateConnection;
-
+use InvalidArgumentException;
 use Exception;
 
 
@@ -48,8 +48,7 @@ class UserController extends Controller
             'login',
             'showLinkRequestForm', 
             'loginForm'
-        ]]);
-
+        ]]);       
     }
 
     /**
@@ -185,8 +184,27 @@ class UserController extends Controller
             /**
              * Just create new database, new table in case NEW MANAGER WAS CREATED BY SUPER ADMIN           
              */
-            if($user->role_id == 2 && $currentUser->role_id == 1){        
-            	CreateConnection::createTable(CreateConnection::getNameDatabaseUser($user->id));
+            if($user->role_id == 2 && $currentUser->role_id == 1){
+            	/**
+            	 * FIRST CREATE SCHEMA
+            	 */
+            	$createSchema = CreateConnection::createSchema($user->id);
+            	if($createSchema)
+            	{
+            		/**
+            		 * THEN CREATE NEW CONNECTION WITH ABOVE SCHEMA, AFTER THAT CREATE TABLE BY ARTISAN MIGRATE     	
+            		 */
+            		$newConnection = CreateConnection::setupConnection($user->id);
+            		if($newConnection)
+            		{
+            			$createTable = CreateConnection::createTable($user->id);            			
+	            		if($createTable instanceof InvalidArgumentException)
+	            		{
+	            			$request->session()->flash('alert-danger', trans('users.create_user_fail'));  
+	        				return redirect()->route('register_path');
+	            		}
+            		}            	
+            	}
         	}
             $request->session()->flash('alert-success', trans('users.create_user_success'));  
             return redirect()->route('register_path');

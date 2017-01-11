@@ -31,7 +31,7 @@
             @if($currentUser->role_id == 1)
                 {!! Form::select('role_id', ['2' => 'Manager', '1' => 'Super Admin'], '', ['class' => 'form-control']) !!}
             @else
-                {!! Form::select('role_id', ['2' => 'Manager', '3' => 'Normal user'], '', ['class' => 'form-control']) !!}
+                {!! Form::select('role_id', ['3' => 'Sub Manager', '4' => 'User'], '', ['class' => 'form-control']) !!}
             @endif
 
             {!! $errors->first('role_id','<span class="error-input">:message</span>')  !!}

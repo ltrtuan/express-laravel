@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Str;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 use App\Models\User;
 use App\Http\Requests\LoginRequest;
@@ -41,7 +42,8 @@ class UserController extends Controller
         $this->middleware('auth', ['only' => [
             'logout',
             'profile',
-            'register'
+            'register',
+            'index'
         ]]);
 
         $this->middleware('guest', ['only' => [ 
@@ -220,9 +222,8 @@ class UserController extends Controller
     public function update(UpdateProfileRequest $request)
     {
         $currentUser = Auth::user();
-        $currentUser->fullname = $request->input('fullname');
-        $currentUser->email = $request->input('email');
-        $currentUser->country_id = $request->input('country_id');
+        $currentUser->name = $request->input('name');
+        $currentUser->email = $request->input('email');     
         if ( ! $request->input('password_input') == '')
         {
             $currentUser->password = bcrypt($request->input('password_input'));
@@ -235,6 +236,11 @@ class UserController extends Controller
         }        
         
         return redirect()->route('profile_path');
+    }
+
+    public function index(){
+        $users = User::paginate(1);
+        return view('user.list',compact('users'));
     }
     
 }

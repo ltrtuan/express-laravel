@@ -7,21 +7,26 @@
     @if(Session::has('alert-danger'))
         <p class="alert alert-danger">{{ Session::get('alert-danger') }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
     @endif
-    {!! Form::model($user, ['route' => 'update_user_path','method' => 'PATCH']) !!}    	
+    {!! Form::model($user, ['route' => 'update_user_path','method' => 'PATCH']) !!}   
+        <div class="form-group">
+            {!! Form::label('name','Username:') !!}
+            {!! Form::text('name', null, ['class' => 'form-control']) !!}
+            {!! $errors->first('name','<span class="error-input">:message</span>')  !!}
+        </div> 	
     	<div class="form-group">
             {!! Form::label('email','Email:') !!}
             {!! Form::text('email', null, ['class' => 'form-control']) !!}
-            {!! $errors->first('email','<span>:message</span>')  !!}
+            {!! $errors->first('email','<span class="error-input">:message</span>')  !!}
         </div>
     	<div class="form-group">
             {!! Form::label('password_input','Password:') !!}
             {!! Form::password('password_input', ['class' => 'form-control']) !!}
-            {!! $errors->first('password_input','<span>:message</span>')  !!}
+            {!! $errors->first('password_input','<span class="error-input">:message</span>')  !!}
         </div>
         <div class="form-group">
             {!! Form::label('password_input_confirmation','Password confirm:') !!}
             {!! Form::password('password_input_confirmation', ['class' => 'form-control']) !!}
-            {!! $errors->first('password_input_confirmation','<span>:message</span>')  !!}
+            {!! $errors->first('password_input_confirmation','<span class="error-input">:message</span>')  !!}
         </div>
       
     	<div class="form-group">

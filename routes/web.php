@@ -35,7 +35,7 @@ Route::get('test', function(){
 });
 
 Route::group(['prefix' => 'user'], function () {
-    Route::get('/',  ['as' => 'profile_path', 'uses' => 'UserController@profile']);
+    Route::get('/',  ['as' => 'list_users_path', 'uses' => 'UserController@index']);
 	Route::get('register',  ['as' => 'register_path', 'uses' => 'UserController@register']);
 	Route::post('register',  ['as' => 'create_user_path', 'uses' => 'UserController@create']);
 

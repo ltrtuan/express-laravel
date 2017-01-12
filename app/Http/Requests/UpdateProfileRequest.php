@@ -25,10 +25,9 @@ class UpdateProfileRequest extends FormRequest
     {
         $currentUser = Auth::user();
         return [
-            'fullname' => 'required|min:6',
+            'name' => ['required', 'min:6', 'max:70', 'unique:users,name,'.$currentUser->id, 'regex:/^[A-Za-z0-9][A-Za-z0-9_]{5,31}$/'],
             'email' => 'required|email|unique:users,email,'.$currentUser->id,
             'password_input' => 'min:6|confirmed',
-            'country_id' => 'required'
         ];
     }
 }

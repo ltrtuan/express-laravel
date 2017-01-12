@@ -179,7 +179,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
-        App\Providers\CreateConnectionServiceProvider::class
+        App\Providers\CreateConnectionServiceProvider::class,
+        App\Providers\ViewComposerServiceProvider::class
     ],
 
     /*

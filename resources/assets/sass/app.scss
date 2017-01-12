@@ -1,9 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i,800,800i&amp;subset=vietnamese');
 
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+header{
+	padding-top: 30px;
+}
+.error-input{
+	color:#ff0000;
+}
+.main-nav{
+	margin: 30px 0;
+}
 
-// Variables
-@import "variables";
-
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+#form-search-list{
+	margin: 30px 0;
+}
+.wrap-pagination{
+	text-align:center
+}

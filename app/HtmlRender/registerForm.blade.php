@@ -40,6 +40,12 @@
     	<div class="form-group">
     		{!! Form::submit('Register', ['class' => 'btn btn-primary']) !!}
     	</div>
-    	{{ Form::hidden('parent', $currentUser->id) }}
+
+        @if($currentUser->role_id == 1 || $currentUser->role_id == 2)
+    	   {{ Form::hidden('parent', $currentUser->id) }}
+        @elseif($currentUser->role_id == 3)
+            {{ Form::hidden('parent', $currentUser->parent) }}
+        @endif
+
         {{ Form::hidden('status', '1') }}
     {!! Form::close() !!}

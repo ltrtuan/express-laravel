@@ -26,7 +26,7 @@ class EditUserRequest extends FormRequest
         return [
             'name' => ['required', 'min:6', 'max:70', 'unique:users,name,'.$request->get('id'), 'regex:/^[A-Za-z0-9][A-Za-z0-9_]{5,31}$/'],
             'email' => 'required|email|unique:users,email,'.$request->get('id'),
-            'password_input' => 'min:6|confirmed',
+            'password' => 'min:6|confirmed',
         ];
     }
 

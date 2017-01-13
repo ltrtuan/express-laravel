@@ -54,14 +54,17 @@
             </label>
         </div>
 
-        <div class="form-group pull-right">
-            {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
+        <div class="form-group clearfix">
+            {!! Form::submit('Update', ['class' => 'btn btn-primary float-lg-left']) !!}
+            <a role="button" class="btn btn-secondary float-lg-right" href="{{ route('list_users_path') }}">Back</a>
         </div>
         {{ Form::hidden('id', $user->id) }}
     {!! Form::close() !!}
 
-    {!! Form::open(array('route' => 'delete_user_path', 'class' => 'clearfix')) !!}
-        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm float-lg-right']) !!}
-    {!! Form::close() !!}
+    @if($user->id != $currentUser->id)
+        {!! Form::open(['route' => ['delete_user_path',$user->id],'method' => 'DELETE']) !!}            
+            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm float-lg-right']) !!}
+        {!! Form::close() !!}
+    @endif
 
 @endsection

@@ -23,12 +23,29 @@ class UserPolicy
 
     public function showEditForm(User $currentUser, User $modelUser)
     {
-        return ($currentUser->id == $modelUser->parent || $currentUser->role_id == 1);
+        return $this->showAndEditPolicy($currentUser, $modelUser);
     }
 
     public function updateEdit(User $currentUser, User $modelUser)
     {
-        return ($currentUser->id == $modelUser->parent || $currentUser->role_id == 1);
+        return $this->showAndEditPolicy($currentUser, $modelUser);
+    }
+
+    private function showAndEditPolicy(User $currentUser, User $modelUser)
+    {
+        if($currentUser->role_id == 2)
+        {            
+            return ($currentUser->id == $modelUser->parent || $currentUser->id == $modelUser->id);
+        }
+        else if($currentUser->role_id == 3)
+        {
+            return ($currentUser->parent == $modelUser->parent || $currentUser->id == $modelUser->id);
+        }
+        else if($currentUser->role_id == 1)
+        {
+            return ($modelUser->role_id == 2 || $modelUser->role_id == 1);
+        }
+        return false;
     }
    
 }

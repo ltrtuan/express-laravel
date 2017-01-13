@@ -20,13 +20,13 @@
         </div>
     	<div class="form-group">
             {!! Form::label('password_input','Password:') !!}
-            {!! Form::password('password_input', ['class' => 'form-control']) !!}
-            {!! $errors->first('password_input','<span class="error-input">:message</span>')  !!}
+            {!! Form::password('password', ['class' => 'form-control']) !!}
+            {!! $errors->first('password','<span class="error-input">:message</span>')  !!}
         </div>
         <div class="form-group">
             {!! Form::label('password_input_confirmation','Password confirm:') !!}
-            {!! Form::password('password_input_confirmation', ['class' => 'form-control']) !!}
-            {!! $errors->first('password_input_confirmation','<span class="error-input">:message</span>')  !!}
+            {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
+            {!! $errors->first('password_confirmation','<span class="error-input">:message</span>')  !!}
         </div>
       
     	<div class="form-group">

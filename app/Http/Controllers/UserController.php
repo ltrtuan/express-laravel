@@ -225,9 +225,9 @@ class UserController extends Controller
         $currentUser = Auth::user();
         $currentUser->name = $request->input('name');
         $currentUser->email = $request->input('email');     
-        if ( ! $request->input('password_input') == '')
+        if ( ! $request->input('password') == '')
         {
-            $currentUser->password = bcrypt($request->input('password_input'));
+            $currentUser->password = bcrypt($request->input('password'));
         }
         try {
             $currentUser->save();
@@ -239,14 +239,19 @@ class UserController extends Controller
         return redirect()->route('profile_path');
     }
 
-    public function index(){
+    public function index()
+    {
 
         $this->authorize('index', User::class);
         $currentUser = Auth::user();
-        if($currentUser->role_id == 2 || $currentUser->role_id == 3)
+        if($currentUser->role_id == 2)
         {
-            $users = User::where('parent', '=', $currentUser->id)->paginate($this->postPerPage);
-        }       
+            $users = User::where('parent', '=', $currentUser->id)->orWhere('id', '=', $currentUser->id)->paginate($this->postPerPage);
+        }
+        else if($currentUser->role_id == 3)
+        {
+        	$users = User::where('parent', '=', $currentUser->id)->orWhere('parent', '=', $currentUser->parent)->paginate($this->postPerPage);
+        }
         else if($currentUser->role_id == 1)
         {
             $users = User::where('role_id', '=', '1')->orWhere('role_id', '=', '2')->paginate($this->postPerPage);
@@ -255,8 +260,9 @@ class UserController extends Controller
         return view('user.list',compact('users'));
     }
 
-    public function updateEdit(User $user, EditUserRequest $request){
-
+    public function updateEdit(User $user, EditUserRequest $request)
+    {
+    	$this->authorize('updateEdit', $user);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->status = $request->input('status');
@@ -275,9 +281,16 @@ class UserController extends Controller
         return redirect()->route('edit_user_path',$request->id);
     }
 
-    public function showEditForm(User $user){
+    public function showEditForm(User $user)
+    {
+        $this->authorize('showEditForm', $user);
         $currentUser = Auth::user();
         return view('user.editPage', compact('user', 'currentUser'));
+    }
+
+    public function delete(User $user){
+    	$user->delete();
+    	return redirect()->route('list_users_path');
     }
 
 }

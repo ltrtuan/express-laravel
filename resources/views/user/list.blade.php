@@ -29,7 +29,7 @@
             @php ($i++)
         <tr>
           <th scope="row">{{ $i }}</th>
-          <td><a href="{{ route('profile_path',['id' => $user->id ])}}">{!! $user->name !!}</a></td>
+          <td><a href="{{ route('edit_user_path',$user->id )}}">{!! $user->name !!}</a></td>
           <td>{!! $user->email !!}</td>
           <td>{!! $user->role_id !!}</td>
           <td>{!! $user->created_at !!}</td>

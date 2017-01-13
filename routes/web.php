@@ -34,6 +34,11 @@ Route::get('test', function(){
 	
 });
 
+
+Route::bind('user', function($id){
+	return App\Models\User::find($id);
+});
+
 Route::group(['prefix' => 'user'], function () {
     Route::get('/',  ['as' => 'list_users_path', 'uses' => 'UserController@index']);
 	Route::get('register',  ['as' => 'register_path', 'uses' => 'UserController@register']);
@@ -47,6 +52,10 @@ Route::group(['prefix' => 'user'], function () {
 	Route::get('profile',  ['as' => 'profile_path', 'uses' => 'UserController@profile']);
 	Route::patch('profile',  ['as' => 'update_user_path', 'uses' => 'UserController@update']);
 
+	Route::get('edit/{user}',  ['as' => 'edit_user_path', 'uses' => 'UserController@showEditForm']);
+	Route::patch('edit/{user}',  ['as' => 'edit_user_path', 'uses' => 'UserController@updateEdit']);
+
+	Route::post('delete',  ['as' => 'delete_user_path', 'uses' => 'UserController@delete']);
 	/**
 	 * THE ACTION USE MEDTHODS OF Illuminate\Foundation\Auth\SendsPasswordResetEmails TRAIT
 	 */

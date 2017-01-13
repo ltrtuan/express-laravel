@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\EditUserRequest;
 use CreateConnection;
 use InvalidArgumentException;
 use Exception;
@@ -23,7 +24,7 @@ class UserController extends Controller
 {
   
     use AuthenticatesUsers;   
-
+    public $postPerPage = 10;
     /**
      * [$redirectTo Where to redirect after login or register]
      * @var string
@@ -239,8 +240,44 @@ class UserController extends Controller
     }
 
     public function index(){
-        $users = User::paginate(1);
+
+        $this->authorize('index', User::class);
+        $currentUser = Auth::user();
+        if($currentUser->role_id == 2 || $currentUser->role_id == 3)
+        {
+            $users = User::where('parent', '=', $currentUser->id)->paginate($this->postPerPage);
+        }       
+        else if($currentUser->role_id == 1)
+        {
+            $users = User::where('role_id', '=', '1')->orWhere('role_id', '=', '2')->paginate($this->postPerPage);
+        }
+        
         return view('user.list',compact('users'));
     }
-    
+
+    public function updateEdit(User $user, EditUserRequest $request){
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->status = $request->input('status');
+        $user->role_id = $request->input('role_id');
+        if ( ! $request->input('password_input') == '')
+        {
+            $user->password = bcrypt($request->input('password_input'));
+        }
+
+        try {
+            $user->save();
+            $request->session()->flash('alert-success', trans('users.update_user_success'));
+        } catch (\Exception $e) {            
+            $request->session()->flash('alert-danger', trans('users.update_user_fail'));
+        }
+        return redirect()->route('edit_user_path',$request->id);
+    }
+
+    public function showEditForm(User $user){
+        $currentUser = Auth::user();
+        return view('user.editPage', compact('user', 'currentUser'));
+    }
+
 }

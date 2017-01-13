@@ -19,8 +19,17 @@
                 <a class="dropdown-item" href="{{ route('profile_path') }}">Profile</a>
                 <a class="dropdown-item" href="{{ route('logout_path') }}">Logout</a>                      
               </div>
-            </li>
+            </li>          
             @endif
+
+            @if(!is_null($current_user))
+              @if($current_user->role_id != '4')
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('list_users_path') }}">List Users</a>
+              </li>
+              @endif
+            @endif
+
           </ul>          
         </nav>
     </div>

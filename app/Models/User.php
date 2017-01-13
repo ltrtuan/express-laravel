@@ -32,5 +32,11 @@ class User extends Authenticatable
     {        
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public function getStatusCheckedAtrribute($user, $status){
+        if($user->status == $status)
+            return true;
+        return false;
+    }
  
 }

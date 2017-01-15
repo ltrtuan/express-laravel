@@ -44,7 +44,10 @@ class UserController extends Controller
             'logout',
             'profile',
             'register',
-            'index'
+            'index',
+            'updateEdit',
+            'showEditForm',
+            'delete'
         ]]);
 
         $this->middleware('guest', ['only' => [ 

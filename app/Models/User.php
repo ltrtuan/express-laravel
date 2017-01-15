@@ -38,5 +38,17 @@ class User extends Authenticatable
             return true;
         return false;
     }
+
+    public function getRoleNameAttribute($value)
+    {
+        if($value == 1)
+            return 'Super Admin';
+        else if($value == 2)
+            return 'Manager';
+        else if($value == 3)
+            return 'Sub Manager';
+        else
+            return 'User';
+    }
  
 }

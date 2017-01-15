@@ -1,4 +1,18 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i,800,800i&amp;subset=vietnamese");
+#logo a {
+  overflow: hidden;
+  text-indent: -9000px;
+  display: block;
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
+  background-image: url(../images/logo-color.svg);
+  background-repeat: no-repeat;
+  background-size: 118px 45px;
+  width: 118px;
+  height: 45px;
+}
+
 header {
   padding-top: 30px;
 }

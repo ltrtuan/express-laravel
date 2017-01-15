@@ -33,7 +33,7 @@
             <th scope="row">{{ $i }}</th>
             <td><a href="{{ route('edit_user_path',$user->id )}}">{!! $user->name !!}</a></td>
             <td>{!! $user->email !!}</td>
-            <td>{!! $user->role_id !!}</td>
+            <td>{!! $user->getRoleNameAttribute($user->role_id) !!}</td>
             <td>{!! $user->created_at !!}</td>
             <td>
               @if($current_user->id != $user->id)

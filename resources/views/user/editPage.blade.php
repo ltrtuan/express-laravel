@@ -29,7 +29,8 @@
             {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
             {!! $errors->first('password_confirmation','<span class="error-input">:message</span>')  !!}
         </div>
-     
+        
+        @if($user->id != $currentUser->id)
         <div class="form-group">
             {!! Form::label('','Status:') !!}
             <label class="custom-control custom-checkbox">
@@ -43,6 +44,9 @@
                 <span class="custom-control-description">Deactive</span>
             </label>
         </div>
+        @else
+            {{ Form::hidden('status', $user->status) }}
+        @endif
 
         <div class="form-group clearfix">
             {!! Form::submit('Update', ['class' => 'btn btn-primary float-lg-left']) !!}

@@ -29,17 +29,7 @@
             {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
             {!! $errors->first('password_confirmation','<span class="error-input">:message</span>')  !!}
         </div>
-        <div class="form-group">
-            {!! Form::label('role_id','Role:') !!}            
-            @if($currentUser->role_id == 1)
-                {!! Form::select('role_id', ['2' => 'Manager', '1' => 'Super Admin'], $user->role_id, ['class' => 'form-control']) !!}
-            @else
-                {!! Form::select('role_id', ['3' => 'Sub Manager', '4' => 'User'], $user->role_id, ['class' => 'form-control']) !!}
-            @endif
-
-            {!! $errors->first('role_id','<span class="error-input">:message</span>')  !!}
-        </div>
-
+     
         <div class="form-group">
             {!! Form::label('','Status:') !!}
             <label class="custom-control custom-checkbox">

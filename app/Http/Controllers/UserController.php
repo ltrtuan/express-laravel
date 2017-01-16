@@ -291,9 +291,14 @@ class UserController extends Controller
         return view('user.editPage', compact('user', 'currentUser'));
     }
 
-    public function delete(User $user){
+    public function delete(User $user){        
     	$user->delete();
     	return redirect()->route('list_users_path');
+    }
+
+    public function delete_ajax(Request $request){
+       $listIdUser = $request->input('id_user');
+       return User::destroy($listIdUser);       
     }
 
 }

@@ -11,8 +11,8 @@
         {!! Html::style('css/app.css') !!}
 
         {!! Html::script('js/vendors.js') !!}
-        {!! Html::script('js/app.js') !!}
-       
+        {!! Html::script('js/all.js') !!}
+     
     </head>
     <body>
         <header>

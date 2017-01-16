@@ -23,8 +23,13 @@ elixir((mix) => {
 
     mix.scripts([
         'vendors/jquery.min.js',
-        'vendors/tether.min.js',       
+        'vendors/tether.min.js',
     ], 'public/js/vendors.js');
+
+    mix.scripts([
+        'app.js',
+        'ajax-helper.js',
+    ], '', 'public/js');
 
    	mix.webpack('app.js');
 });

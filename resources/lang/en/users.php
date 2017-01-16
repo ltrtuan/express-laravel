@@ -39,5 +39,7 @@ return [
     'many_attempts' => 'Too many failed login attempts!',
     'remember_me' => 'Remember me',
     'forgot_pass_text' => 'Forgot password ?',
-    'back_to_login' => '< Back to login'
+    'back_to_login' => '< Back to login',
+    'delete_user_success' => 'Deleted users is successfull.',
+    'delete_user_fail' => 'Deleted users is failed.'
 ];

@@ -56,6 +56,8 @@ Route::group(['prefix' => 'user'], function () {
 	Route::patch('edit/{user}',  ['as' => 'edit_user_path', 'uses' => 'UserController@updateEdit']);
 
 	Route::delete('delete/{user}',  ['as' => 'delete_user_path', 'uses' => 'UserController@delete']);
+
+	Route::post('delete-ajax',  ['as' => 'delete_user_path_ajax', 'uses' => 'UserController@delete_ajax']);
 	/**
 	 * THE ACTION USE MEDTHODS OF Illuminate\Foundation\Auth\SendsPasswordResetEmails TRAIT
 	 */

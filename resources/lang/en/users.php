@@ -16,7 +16,7 @@ return [
     'create_user_success' => 'A new user have been created successfully.',
     'create_user_fail' => 'Have a problem when create user. Please try again.',
     'update_user_success' => 'You have been updated successfully.',
-    'update_user_fail' => 'Updated fail. Please try again',
+    'update_user_fail' => 'Update fail. Please try again',
     'login_user_success' => 'You have been logged in successfully.',
     'login_user_fail' => 'Logged in fail. Please try again.',
     'logout_user_success' => 'You have been logged out successfully.',
@@ -40,6 +40,6 @@ return [
     'remember_me' => 'Remember me',
     'forgot_pass_text' => 'Forgot password ?',
     'back_to_login' => '< Back to login',
-    'delete_user_success' => 'Deleted users is successfull.',
-    'delete_user_fail' => 'Deleted users is failed.'
+    'delete_user_success' => 'Delete users is successfull.',
+    'delete_user_fail' => 'Delete users is failed.'
 ];

@@ -17,6 +17,7 @@
 					{
 						$('.alert-success.alert-for-ajax').fadeIn('0').delay('2000').fadeOut('500');
 						_formParent.find('tr.had-checked').remove();
+						setTimeout(location.reload.bind(location), 1000);
 					}
 					else
 						$('.alert-danger.alert-for-ajax').fadeIn('0').delay('2000').fadeOut('500');

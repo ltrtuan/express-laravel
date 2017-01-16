@@ -22,9 +22,9 @@ class CreateConnection
 	{
 	    // We will use the `statement` method from the connection class so that
 	    // we have access to parameter binding.
-
-	    if($this->checkDBUserExist($idUser) > 0)
-	    {
+		
+	    if($this->checkDBUserExist($idUser) == false)
+	    {	    	
 	    	return DB::statement('CREATE SCHEMA '.$this->getNameDatabaseUser($idUser).' CHARACTER SET utf8 COLLATE utf8_general_ci;');
 	    	//return DB::statement('GRANT ALL PRIVILEGES ON '.$this->getNameDatabaseUser($idUser).'.* TO "'.config('database.connections.mysql.username').'"@"%"');
 	    }
@@ -48,7 +48,7 @@ class CreateConnection
         $nameDatabase = '';
         if($idUseParam > 0)
         {        	
-        	if($this->checkDBUserExist($idUseParam) > 0)
+        	if($this->checkDBUserExist($idUseParam))
         	{
         		$nameDatabase = $this->getNameDatabaseUser($idUseParam);
         	}
@@ -63,9 +63,9 @@ class CreateConnection
 	        	/**
 	        	 * IF USER IS SUB MANAGER OR NORMAL USER, CAN NOT GET DATABASE FOR NEW CONNECTION, NEED RECURSIVE GET PARENT ID USER TO GET DATABASE
 	        	 */
-	        	if($this->checkDBUserExist($currentUser->id) == 0)
+	        	if($this->checkDBUserExist($currentUser->id) == false)
 	        	{	        		
-	        		if($this->checkDBUserExist($currentUser->parent) > 0)
+	        		if($this->checkDBUserExist($currentUser->parent_id))
 	        		{
 	        			$nameDatabase = $this->getNameDatabaseUser($idUserManagerHasDB);
 	        		}	        		
@@ -107,16 +107,20 @@ class CreateConnection
     	return 'express_'.$idUser;
     }
 
-    private function checkDBUserExist(&$idUser){
-    	if($idUser > 0){
-    		$checkDBExist = DB::statement('SHOW DATABASES LIKE "'.$this->getNameDatabaseUser($idUser).'"');
-    		if(!$checkDBExist){
-    			$userExist = User::whereId($idUser)->first();
-    			$this->checkDBUserExist($userExist->parent);
-    		}
-    		return $idUser;
+    public function checkDBUserExist(&$idUser){    	
+    	if($idUser > 0){    		
+    		$checkDBExist = DB::select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '".$this->getNameDatabaseUser($idUser)."'");
+    		if(count($checkDBExist) > 0)
+    		{
+    			return true;
+    		}else
+    		{
+    			$userExist = User::whereId($idUser)->first(); 
+    			$idParent = $userExist->parent_id;
+    			$this->checkDBUserExist($idParent);
+    		}    		
     	}
-    	return 0;
+    	return false; 
     }
 
 }

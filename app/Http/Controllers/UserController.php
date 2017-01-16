@@ -18,7 +18,7 @@ use App\Http\Requests\EditUserRequest;
 use CreateConnection;
 use InvalidArgumentException;
 use Exception;
-
+use DB;
 
 class UserController extends Controller
 {
@@ -249,11 +249,11 @@ class UserController extends Controller
         $currentUser = Auth::user();
         if($currentUser->role_id == 2)
         {
-            $users = User::where('parent', '=', $currentUser->id)->orWhere('id', '=', $currentUser->id)->paginate($this->postPerPage);
+            $users = User::where('parent_id', '=', $currentUser->id)->orWhere('id', '=', $currentUser->id)->paginate($this->postPerPage);
         }
         else if($currentUser->role_id == 3)
         {
-        	$users = User::where('parent', '=', $currentUser->id)->orWhere('parent', '=', $currentUser->parent)->paginate($this->postPerPage);
+        	$users = User::where('parent_id', '=', $currentUser->id)->orWhere('parent_id', '=', $currentUser->parent_id)->paginate($this->postPerPage);
         }
         else if($currentUser->role_id == 1)
         {
@@ -291,14 +291,31 @@ class UserController extends Controller
         return view('user.editPage', compact('user', 'currentUser'));
     }
 
-    public function delete(User $user){        
+    public function delete(User $user){      
+        if($user->role_id == 2)
+        {            
+            if(CreateConnection::checkDBUserExist($user->id))
+                DB::statement('DROP DATABASE '.CreateConnection::getNameDatabaseUser($user->id));
+        }      
     	$user->delete();
     	return redirect()->route('list_users_path');
     }
 
     public function delete_ajax(Request $request){
-       $listIdUser = $request->input('id_user');
-       return User::destroy($listIdUser);       
+        $listIdUser = $request->input('id_user');
+        foreach ($listIdUser as $idUser) {
+           $userExist = User::whereId($idUser)->first();
+           if($userExist)
+           {
+                if($userExist->role_id == 2)
+                {
+                    if(CreateConnection::checkDBUserExist($idUser))
+                        DB::statement('DROP DATABASE '.CreateConnection::getNameDatabaseUser($idUser));
+                }
+           }
+        }
+        
+        return User::destroy($listIdUser);       
     }
 
 }

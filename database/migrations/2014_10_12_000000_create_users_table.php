@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');           
             $table->smallInteger('role_id')->unsigned()->default(1);
             $table->tinyInteger('status')->unsigned()->default(1);
-            $table->bigInteger('parent')->unsigned()->default(0);
+            $table->bigInteger('parent_id')->unsigned()->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

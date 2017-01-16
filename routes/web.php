@@ -26,7 +26,7 @@ Route::get('test', function(){
 	// $user->name = 'ltrtuan';
 	// $user->email = 'ltrtuan@gmail.com';
 	// $user->password = bcrypt('123456');
-	// $user->parent = '0';
+	// $user->parent_id = '0';
 	// $user->role_id = '1';
 	// $user->status = '1';
 	// $user->save();

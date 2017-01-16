@@ -35,11 +35,11 @@ class UserPolicy
     {
         if($currentUser->role_id == 2)
         {            
-            return ($currentUser->id == $modelUser->parent || $currentUser->id == $modelUser->id);
+            return ($currentUser->id == $modelUser->parent_id || $currentUser->id == $modelUser->id);
         }
         else if($currentUser->role_id == 3)
         {
-            return ($currentUser->parent == $modelUser->parent || $currentUser->id == $modelUser->id);
+            return ($currentUser->parent_id == $modelUser->parent_id || $currentUser->id == $modelUser->id);
         }
         else if($currentUser->role_id == 1)
         {

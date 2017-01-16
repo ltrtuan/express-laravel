@@ -42,9 +42,9 @@
     	</div>
 
         @if($currentUser->role_id == 1 || $currentUser->role_id == 2)
-    	   {{ Form::hidden('parent', $currentUser->id) }}
+    	   {{ Form::hidden('parent_id', $currentUser->id) }}
         @elseif($currentUser->role_id == 3)
-            {{ Form::hidden('parent', $currentUser->parent) }}
+            {{ Form::hidden('parent_id', $currentUser->parent_id) }}
         @endif
 
         {{ Form::hidden('status', '1') }}

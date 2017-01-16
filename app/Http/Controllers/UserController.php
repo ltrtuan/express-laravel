@@ -72,12 +72,21 @@ class UserController extends Controller
      * [loginForm: Show Form Login]
      * @return [type] [description]
      */
-    public function loginForm(){
+    public function loginForm()
+    {
         $template = view()->file(app_path('HtmlRender/loginForm.blade.php'));
         return view('user.loginPage', compact('template'));
     }
     
 
+    private function checkUserParentActive($idUserParent)
+    {
+        $userParentExist = User::whereId($idUserParent)->first();        
+        if($userParentExist->status == 0)    
+           return false;      
+        else
+            return true;
+    }
     /**
      * OVERRIDE METHOD OF AuthenticatesUsers trait;
      */
@@ -85,39 +94,56 @@ class UserController extends Controller
      * [loginAction Logic for login user]
      * @return [type] [description]
      */
-    public function login(LoginRequest $request){
+    public function login(LoginRequest $request)
+    {
         $credentials = array();
         /**
          * LOGIN USE BOTH USERNAME AND EMAIL
          */
-        if (filter_var($request->username, FILTER_VALIDATE_EMAIL)) {         
-            $credentials = array('email' => $request->username, 'password' => $request->password, 'status' => 1);
+        $nameOrEmail = 'name';
+        $verifyUserParentActive = true;
+        if (filter_var($request->username, FILTER_VALIDATE_EMAIL)) {
+            $nameOrEmail = 'email';            
+            $userExist = User::whereEmail($request->username)->first();
+            if($userExist->role_id == 3 || $userExist->role_id == 4)
+            {
+                $verifyUserParentActive = $this->checkUserParentActive($userExist->parent_id);
+            }
         }else{
-            $credentials = array('name' => $request->username, 'password' => $request->password, 'status' => 1);
-        }
-        
-        /**
-         * BLOCK USER HAVE MANY ATTEMPS LOGIN
-         */
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-            return $this->sendLockoutResponse($request);
-        }
-        
-
-        /**
-         * LOGIN IS SUCCESSFUL
-         */
-        if ($this->guard()->attempt($credentials, $request->has('remember'))) {
-            $request->session()->flash('alert-success', trans('users.login_user_success'));  
-            $resultLogin =  $this->sendLoginResponse($request);          
-            return $resultLogin;
+            $userExist = User::whereName($request->username)->first();
+            if($userExist->role_id == 3 || $userExist->role_id == 4)
+            {
+                $verifyUserParentActive = $this->checkUserParentActive($userExist->parent_id);
+            }
         }
 
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
-        $this->incrementLoginAttempts($request);
+        if($verifyUserParentActive == true)
+        {
+            $credentials = array($nameOrEmail => $request->username, 'password' => $request->password, 'status' => 1);
+            
+            /**
+             * BLOCK USER HAVE MANY ATTEMPS LOGIN
+             */
+            if ($this->hasTooManyLoginAttempts($request)) {
+                $this->fireLockoutEvent($request);
+                return $this->sendLockoutResponse($request);
+            }
+            
+
+            /**
+             * LOGIN IS SUCCESSFUL
+             */
+            if ($this->guard()->attempt($credentials, $request->has('remember'))) {
+                $request->session()->flash('alert-success', trans('users.login_user_success'));  
+                $resultLogin =  $this->sendLoginResponse($request);          
+                return $resultLogin;
+            }
+
+            // If the login attempt was unsuccessful we will increment the number of attempts
+            // to login and redirect the user back to the login form. Of course, when this
+            // user surpasses their maximum number of attempts they will get locked out.
+            $this->incrementLoginAttempts($request);
+        }// if($verifyUserParentActive == true)
         
         /**
          * LOGIN IS FAILED

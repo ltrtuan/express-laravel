@@ -23,7 +23,7 @@ class CreateConnection
 	    // We will use the `statement` method from the connection class so that
 	    // we have access to parameter binding.
 
-	    if($this->checkDBUserExist($idUser) == 0)
+	    if($this->checkDBUserExist($idUser) > 0)
 	    {
 	    	return DB::statement('CREATE SCHEMA '.$this->getNameDatabaseUser($idUser).' CHARACTER SET utf8 COLLATE utf8_general_ci;');
 	    	//return DB::statement('GRANT ALL PRIVILEGES ON '.$this->getNameDatabaseUser($idUser).'.* TO "'.config('database.connections.mysql.username').'"@"%"');

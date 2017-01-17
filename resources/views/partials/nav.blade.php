@@ -10,7 +10,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('login_path') }}">Login</a>
               </li>
-              @else
+              @elseif(!is_null($current_user) && ($current_user->role_id == 1 || $current_user->role_id == 2))
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('register_path') }}">Register New User</a>
               </li>
@@ -25,13 +25,6 @@
                 @endif
               @endif
 
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User</a>
-                <div class="dropdown-menu" aria-labelledby="supportedContentDropdown">
-                  <a class="dropdown-item" href="{{ route('profile_path') }}">Profile</a>
-                  <a class="dropdown-item" href="{{ route('logout_path') }}">Logout</a>                      
-                </div>
-              </li>
               
             </ul>
 

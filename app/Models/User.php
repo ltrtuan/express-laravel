@@ -44,7 +44,7 @@ class User extends Authenticatable
         if($value == 1)
             return 'Super Admin';
         else if($value == 2)
-            return 'Manager';
+            return 'Client';
         else if($value == 3)
             return 'Sub Manager';
         else

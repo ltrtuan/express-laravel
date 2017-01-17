@@ -219,6 +219,11 @@ class UserController extends Controller
              * Just create new database, new table in case NEW MANAGER WAS CREATED BY SUPER ADMIN           
              */
             if($user->role_id == 2 && $currentUser->role_id == 1){
+                $extraFields = $request->extra_user_field;
+                if(count($extraFields) > 0)
+                {
+                    $this->updateUserMeta($user->id, $extraFields);
+                }
             	/**
             	 * FIRST CREATE SCHEMA
             	 */
@@ -239,12 +244,6 @@ class UserController extends Controller
 	            		}
             		}            	
             	}
-
-                $extraFields = $request->extra_user_field;
-                if(count($extraFields) > 0)
-                {
-                    $this->updateUserMeta($user->id, $extraFields);
-                }
         	}
 
             
@@ -333,9 +332,9 @@ class UserController extends Controller
             {
                 $this->updateUserMeta($user->id, $extraFields);
             }
-            
+
             $user->save();
-            
+
             $request->session()->flash('alert-success', trans('users.update_user_success'));
         } catch (\Exception $e) {            
             $request->session()->flash('alert-danger', trans('users.update_user_fail'));

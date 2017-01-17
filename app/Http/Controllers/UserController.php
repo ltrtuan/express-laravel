@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 use App\Models\User;
+use App\Models\UserMeta;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Requests\CreateUserRequest;
@@ -19,7 +20,7 @@ use CreateConnection;
 use InvalidArgumentException;
 use Exception;
 use DB;
-
+use UserMetaHelper;
 class UserController extends Controller
 {
   
@@ -30,6 +31,7 @@ class UserController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+  
     // public function redirectTo(){
     // 	return redirect()->to('/');
     // }
@@ -54,7 +56,7 @@ class UserController extends Controller
             'login',
             'showLinkRequestForm', 
             'loginForm'
-        ]]);       
+        ]]);      
     }
 
     /**
@@ -208,7 +210,7 @@ class UserController extends Controller
      */
     public function create(CreateUserRequest $request)
     {
-        $request->merge(['password' => Hash::make($request->password)]);
+        $request->merge(['password' => Hash::make($request->password)]);        
         $user = User::create($request->all());
         $currentUser = Auth::user();
         if($user->id > 0)
@@ -237,7 +239,15 @@ class UserController extends Controller
 	            		}
             		}            	
             	}
+
+                $extraFields = $request->extra_user_field;
+                if(count($extraFields) > 0)
+                {
+                    $this->updateUserMeta($user->id, $extraFields);
+                }
         	}
+
+            
             $request->session()->flash('alert-success', trans('users.create_user_success'));  
             return redirect()->route('register_path');
         }
@@ -245,6 +255,15 @@ class UserController extends Controller
         return redirect()->route('register_path');
     }
 
+    private function updateUserMeta($userId, $extraFields){
+        if(count($extraFields) > 0)
+        {
+            foreach ($extraFields as $meta_key => $meta_value)
+            {
+                UserMetaHelper::save($userId, $meta_key, $meta_value);
+            }
+        }
+    }
     /**
      * [update update user when user update profile]
      * @return [type] [description]
@@ -259,6 +278,12 @@ class UserController extends Controller
             $currentUser->password = bcrypt($request->input('password'));
         }
         try {
+
+            $extraFields = $request->extra_user_field;
+            if(count($extraFields) > 0)
+            {
+                $this->updateUserMeta($currentUser->id, $extraFields);
+            }
             $currentUser->save();
             $request->session()->flash('alert-success', trans('users.update_user_success'));
         } catch (\Exception $e) {            
@@ -302,7 +327,15 @@ class UserController extends Controller
         }
 
         try {
+
+            $extraFields = $request->extra_user_field;
+            if(count($extraFields) > 0)
+            {
+                $this->updateUserMeta($user->id, $extraFields);
+            }
+            
             $user->save();
+            
             $request->session()->flash('alert-success', trans('users.update_user_success'));
         } catch (\Exception $e) {            
             $request->session()->flash('alert-danger', trans('users.update_user_fail'));

@@ -29,13 +29,38 @@
         <div class="form-group">
             {!! Form::label('role_id','Role:') !!}            
             @if($currentUser->role_id == 1)
-                {!! Form::select('role_id', ['2' => 'Manager', '1' => 'Super Admin'], '', ['class' => 'form-control']) !!}
+                {!! Form::select('role_id', ['2' => 'Client', '1' => 'Super Admin'], '', ['class' => 'form-control']) !!}
             @else
                 {!! Form::select('role_id', ['3' => 'Sub Manager', '4' => 'User'], '', ['class' => 'form-control']) !!}
             @endif
 
             {!! $errors->first('role_id','<span class="error-input">:message</span>')  !!}
         </div>
+
+        @if($currentUser->role_id == 1)
+        <div id="extra-user">
+            <hr/>
+            <h3>Information Client:</h3>
+
+            <div class="form-group">
+                {!! Form::label('fullname','Full name:') !!}
+                {!! Form::text('extra_user_field[user_fullname]', ' ', ['class' => 'form-control','id' => 'fullname']) !!}
+                {!! $errors->first('extra_user_field.user_fullname','<span class="error-input">:message</span>')  !!}
+            </div>
+
+            <div class="form-group">
+                {!! Form::label('address','Address:') !!}
+                {!! Form::text('extra_user_field[user_address]', ' ', ['class' => 'form-control','id' => 'address']) !!}
+                {!! $errors->first('extra_user_field.user_address','<span class="error-input">:message</span>')  !!}
+            </div>
+
+            <div class="form-group">
+                {!! Form::label('phone','Phone number:') !!}
+                {!! Form::text('extra_user_field[user_phone]', ' ', ['class' => 'form-control','id' => 'phone']) !!}
+                {!! $errors->first('extra_user_field.user_phone','<span class="error-input">:message</span>')  !!}
+            </div>
+        </div>
+        @endif
     
     	<div class="form-group">
     		{!! Form::submit('Register', ['class' => 'btn btn-primary']) !!}

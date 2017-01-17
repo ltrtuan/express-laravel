@@ -41,5 +41,7 @@ return [
     'forgot_pass_text' => 'Forgot password ?',
     'back_to_login' => '< Back to login',
     'delete_user_success' => 'Delete users is successfull.',
-    'delete_user_fail' => 'Delete users is failed.'
+    'delete_user_fail' => 'Delete users is failed.',    
+    'address' => 'Address',
+    'phone_number' => 'Phone number',
 ];

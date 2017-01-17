@@ -155,6 +155,13 @@ eval("\r\n/**\r\n * First we will load all of this project's JavaScript dependen
 		$('.check-delete-user').on('change',function(){
 			$(this).parents('tr').toggleClass('had-checked');
 		});
+
+		if($('#extra-user').length > 0){
+			$('#role_id').on('change',function(e){				
+				$('#extra-user').toggleClass('hidden');				
+			});
+		}
+
 	});
 })();
 //# sourceMappingURL=all.js.map

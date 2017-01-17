@@ -180,7 +180,8 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
         App\Providers\CreateConnectionServiceProvider::class,
-        App\Providers\ViewComposerServiceProvider::class
+        App\Providers\ViewComposerServiceProvider::class,
+        App\Providers\UserMetaServiceProvider::class
     ],
 
     /*
@@ -230,7 +231,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'CreateConnection' => App\Facades\CreateConnectionFacade::class
+        'CreateConnection' => App\Facades\CreateConnectionFacade::class,
+        'UserMetaHelper' => App\Facades\UserMetaFacade::class
     ],
 
 ];

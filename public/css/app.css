@@ -41,4 +41,8 @@ header {
   z-index: 99999;
 }
 
+#extra-user.hidden {
+  display: none;
+}
+
 /*# sourceMappingURL=app.css.map */

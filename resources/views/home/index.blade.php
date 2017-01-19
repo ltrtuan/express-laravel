@@ -1,9 +1,10 @@
 @extends('master')
 @section('content')
 
-	@if(Session::has('alert-success'))
-    	<p class="alert alert-success">{{ Session::get('alert-success') }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
-    @endif		  
+	@php
+        $session = new Session;
+    @endphp
+    {{ AppHelper::showAlertFlashMessage($session, array('alert-success','alert-danger')) }}
 
     <div class="panel panel-default">
         <h1>Home page</h1>

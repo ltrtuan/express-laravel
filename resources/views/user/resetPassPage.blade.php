@@ -1,12 +1,11 @@
 @extends('master')
-@section('content')
-    @if(Session::has('alert-success'))
-        <p class="alert alert-success">{{ Session::get('alert-success') }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
-    @endif
-    @if(Session::has('alert-danger'))
-        <p class="alert alert-danger">{{ Session::get('alert-danger') }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
-    @endif
+@section('content')   
     <h2>Reset Password</h2>
+    @php
+        $session = new Session;
+    @endphp
+    {{ AppHelper::showAlertFlashMessage($session, array('alert-success','alert-danger')) }}
+    
 
     {!! Form::open(['route' => ['reset_pass_path']]) !!}
 

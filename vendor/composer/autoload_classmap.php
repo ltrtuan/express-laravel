@@ -6,8 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreateListOptionsTable' => $baseDir . '/database/migrations/2017_01_19_095548_create_list_options_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePropertiesTable' => $baseDir . '/database/migrations/subuser/2017_01_18_172408_create_properties_table.php',
+    'CreateSessionsTable' => $baseDir . '/database/migrations/2017_01_19_091041_create_sessions_table.php',
     'CreateSubUsersTableOptions' => $baseDir . '/database/migrations/subuser/2017_01_10_104131_create_sub_users_table_options.php',
     'CreateUnitsTable' => $baseDir . '/database/migrations/subuser/2017_01_18_173524_create_units_table.php',
     'CreateUsermetaTable' => $baseDir . '/database/migrations/2017_01_17_035251_create_usermeta_table.php',
@@ -84,6 +86,7 @@ return array(
     'Hamcrest\\Type\\IsString' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsString.php',
     'Hamcrest\\Util' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
     'Hamcrest\\Xml\\HasXPath' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
+    'ListOptionsSeeder' => $baseDir . '/database/seeds/ListOptionsSeeder.php',
     'PHPUnit\\Framework\\Assert' => $vendorDir . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
     'PHPUnit\\Framework\\BaseTestListener' => $vendorDir . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',
     'PHPUnit\\Framework\\TestCase' => $vendorDir . '/phpunit/phpunit/src/ForwardCompatibility/TestCase.php',

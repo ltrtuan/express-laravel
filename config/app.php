@@ -181,7 +181,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         App\Providers\CreateConnectionServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
-        App\Providers\UserMetaServiceProvider::class
+        App\Providers\UserMetaServiceProvider::class,
+        App\Providers\AppHelperServiceProvider::class
     ],
 
     /*
@@ -232,7 +233,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'CreateConnection' => App\Facades\CreateConnectionFacade::class,
-        'UserMetaHelper' => App\Facades\UserMetaFacade::class
+        'UserMetaHelper' => App\Facades\UserMetaFacade::class,
+        'AppHelper' => App\Facades\AppHelperFacade::class
     ],
 
 ];

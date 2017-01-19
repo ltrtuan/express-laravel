@@ -1,21 +1,36 @@
+@extends('master')
+@section('content')
+    <h2>Edit User</h2>   
     @php
         $session = new Session;
     @endphp
     {{ AppHelper::showAlertFlashMessage($session, array('alert-success','alert-danger')) }}
 
-   	{!! Form::open(['route' => ['create_user_path'],'files' => true]) !!}
-   		<div class="form-group">
+    {!! Form::open(['route' => ['save_property_path'],'files' => true]) !!}
+
+        <div class="form-group">
+            {!! Form::label('property_type','Property Type:') !!}
+            {!! Form::select('property_type', ['2' => 'Client', '1' => 'Super Admin'], '', ['class' => 'form-control']) !!}
+            {!! $errors->first('property_type','<span class="error-input">:message</span>')  !!}
+        </div>
+
+
+
+
+
+
+        <div class="form-group">
             {!! Form::label('name','Username:') !!}
-    		{!! Form::text('name', null, ['class' => 'form-control']) !!}
+            {!! Form::text('name', null, ['class' => 'form-control']) !!}
             {!! $errors->first('name','<span class="error-input">:message</span>')  !!}
-    	</div>
+        </div>
    
-    	<div class="form-group">
+        <div class="form-group">
             {!! Form::label('email','Email:') !!}
             {!! Form::text('email', null, ['class' => 'form-control']) !!}
             {!! $errors->first('email','<span class="error-input">:message</span>')  !!}
         </div>
-    	<div class="form-group">
+        <div class="form-group">
             {!! Form::label('password','Password:') !!}
             {!! Form::password('password', ['class' => 'form-control']) !!}
             {!! $errors->first('password','<span class="error-input">:message</span>')  !!}
@@ -61,15 +76,17 @@
         </div>
         @endif
     
-    	<div class="form-group">
-    		{!! Form::submit('Register', ['class' => 'btn btn-primary']) !!}
-    	</div>
+        <div class="form-group">
+            {!! Form::submit('Register', ['class' => 'btn btn-primary']) !!}
+        </div>
 
         @if($currentUser->role_id == 1 || $currentUser->role_id == 2)
-    	   {{ Form::hidden('parent_id', $currentUser->id) }}
+           {{ Form::hidden('parent_id', $currentUser->id) }}
         @elseif($currentUser->role_id == 3)
             {{ Form::hidden('parent_id', $currentUser->parent_id) }}
         @endif
 
         {{ Form::hidden('status', '1') }}
     {!! Form::close() !!}
+
+@endsection

@@ -311,8 +311,10 @@ class ComposerStaticInitc6bde87457b3fbc33f0bbfcf90e415bc
     );
 
     public static $classMap = array (
+        'CreateListOptionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_19_095548_create_list_options_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePropertiesTable' => __DIR__ . '/../..' . '/database/migrations/subuser/2017_01_18_172408_create_properties_table.php',
+        'CreateSessionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_19_091041_create_sessions_table.php',
         'CreateSubUsersTableOptions' => __DIR__ . '/../..' . '/database/migrations/subuser/2017_01_10_104131_create_sub_users_table_options.php',
         'CreateUnitsTable' => __DIR__ . '/../..' . '/database/migrations/subuser/2017_01_18_173524_create_units_table.php',
         'CreateUsermetaTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_17_035251_create_usermeta_table.php',
@@ -389,6 +391,7 @@ class ComposerStaticInitc6bde87457b3fbc33f0bbfcf90e415bc
         'Hamcrest\\Type\\IsString' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsString.php',
         'Hamcrest\\Util' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
         'Hamcrest\\Xml\\HasXPath' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
+        'ListOptionsSeeder' => __DIR__ . '/../..' . '/database/seeds/ListOptionsSeeder.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
         'PHPUnit\\Framework\\BaseTestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',
         'PHPUnit\\Framework\\TestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestCase.php',

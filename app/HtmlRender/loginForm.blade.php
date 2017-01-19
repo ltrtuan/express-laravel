@@ -1,9 +1,8 @@
-@if(Session::has('alert-success'))
-	<p class="alert alert-success">{{ Session::get('alert-success') }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
-@endif
-@if(Session::has('alert-danger'))
-    <p class="alert alert-danger">{{ Session::get('alert-danger') }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
-@endif
+@php
+    $session = new Session;
+@endphp
+{{ AppHelper::showAlertFlashMessage($session, array('alert-success','alert-danger')) }}
+    
 {!! Form::open(array('route' => 'action_login_path')) !!}
 	<div class="form-group">
 	{!! Form::label('username','Username or Email:') !!}

@@ -156,7 +156,7 @@ class UserController extends Controller
          * LOGIN IS FAILED
          */
         $request->session()->flash('alert-danger', trans('users.login_user_fail'));  
-        return redirect()->route('login_path');     
+        return redirect()->route('login_path');
     }
 
     protected function hasTooManyLoginAttempts(Request $request)

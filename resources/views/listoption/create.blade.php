@@ -1,20 +1,12 @@
 @extends('master')
 @section('content')
-    <h2>List defined options</h2>   
+    <h2>Add new value for options {!! $optionParent->name !!}</h2>   
     @php
         $session = new Session;
     @endphp
     {{ AppHelper::showAlertFlashMessage($session, array('alert-success','alert-danger')) }}
 
-
-
-    @if(count($listOption) > 0)
-      <form class="form-inline float-xs-right" id="form-search-list" style="display:none">
-        <input class="form-control" type="text" placeholder="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-      <div class="clearfix"></div>
-
+    @if($optionParent->id > 0)
       {!! Form::open(['data-remote', 'route' => ['delete_list_option_path_ajax'],'method' => 'POST']) !!}
         <table class="table table-striped">
           <thead>
@@ -26,7 +18,7 @@
           </thead>
           <tbody>
             @php ($i = 0)
-            @foreach($listOption as $option)
+            @foreach($optionChild as $option)
                 @php ($i++)
             <tr>
               <th scope="row">{{ $i }}</th>
@@ -50,10 +42,24 @@
         <a role="button" class="btn btn-danger btn-sm float-lg-right" href="#" id="delete-user-btn">Delete</a>
         
       {!! Form::close() !!}
-      {{ $listOption->links() }}
+
+      {!! Form::open(['route' => ['create_list_option_child_path', $optionParent->id],'files' => true]) !!}
+        <div class="form-group">
+          {!! Form::label('name','Name:') !!}
+          {!! Form::text('name', null, ['class' => 'form-control']) !!}
+          {!! $errors->first('name','<span class="error-input">:message</span>')  !!}
+        </div>
+
+        <div class="form-group">
+          {!! Form::submit('Add new', ['class' => 'btn btn-primary']) !!}
+        </div>
+
+        {{ Form::hidden('parent_id', $optionParent->id) }}
+        
+      {!! Form::close() !!}
 
     @else
-      <h1 class="text-center">There are no options</h1>
+      <h1 class="text-center">There are a problem</h1>
     @endif
 
 

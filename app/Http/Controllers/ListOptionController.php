@@ -17,7 +17,20 @@ class ListOptionController extends Controller
 
     public function index()
     {
-    	$listOption = ListOption::paginate($this->postPerPage);;
+    	$listOption = ListOption::where('parent_id', 0)->paginate($this->postPerPage);
     	return view('listoption.index',compact('listOption'));
     }
-}
+
+    public function create(ListOption $optionParent)
+    {       
+        $optionChild = ListOption::where('parent_id', $optionParent->id)->get();        
+        return view('listoption.create',compact('optionParent','optionChild'));
+    }
+
+    public function save(ListOption $optionParent, Request $request)
+    {       
+        ListOption::create($request->all());
+        $request->session()->flash('alert-success', trans('users.create_user_success'));  
+        return redirect()->route('create_list_option_child_path', $optionParent->id);
+    }
+} 

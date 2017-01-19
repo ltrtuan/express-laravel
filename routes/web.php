@@ -35,10 +35,11 @@ Route::get('test', function(){
 });
 
 
-Route::bind('user', function($id){
-	return App\Models\User::find($id);
-});
+
 Route::group(['middleware' => 'web'], function (){
+	Route::bind('user', function($id){
+		return App\Models\User::find($id);
+	});
 	Route::group(['prefix' => 'user'], function () {
 	    Route::get('/',  ['as' => 'list_users_path', 'uses' => 'UserController@index']);
 		Route::get('register',  ['as' => 'register_path', 'uses' => 'UserController@register']);
@@ -68,18 +69,15 @@ Route::group(['middleware' => 'web'], function (){
 		Route::post('reset-password',  ['as' => 'reset_pass_path', 'uses' => 'ExtendUserController\ResetPasswordController@reset']);
 	});
 	
+	
+	Route::bind('optionParent', function($id){
+		return App\Models\ListOption::find($id);
+	});
 	Route::group(['prefix' => 'list-option'], function () {
 	    Route::get('/',  ['as' => 'list_list_option_path', 'uses' => 'ListOptionController@index']);
-		Route::get('register',  ['as' => 'register_path', 'uses' => 'UserController@register']);
-		Route::post('register',  ['as' => 'create_user_path', 'uses' => 'UserController@create']);
 
-		Route::get('login',  ['as' => 'login_path', 'uses' => 'UserController@loginForm']);
-		Route::post('login',  ['as' => 'action_login_path', 'uses' => 'UserController@login']);
-
-		Route::get('logout',  ['as' => 'logout_path', 'uses' => 'UserController@logout']);
-
-		Route::get('profile',  ['as' => 'profile_path', 'uses' => 'UserController@profile']);
-		Route::patch('profile',  ['as' => 'update_user_path', 'uses' => 'UserController@update']);
+		Route::get('create/{optionParent}',  ['as' => 'create_list_option_child_path', 'uses' => 'ListOptionController@create']);
+		Route::post('create/{optionParent}',  ['as' => 'create_list_option_child_path', 'uses' => 'ListOptionController@save']);
 
 		Route::get('edit/{user}',  ['as' => 'edit_list_option_path', 'uses' => 'UserController@showEditForm']);
 		Route::patch('edit/{user}',  ['as' => 'edit_list_option_path', 'uses' => 'UserController@updateEdit']);
@@ -87,9 +85,7 @@ Route::group(['middleware' => 'web'], function (){
 		Route::delete('delete/{user}',  ['as' => 'delete_user_path', 'uses' => 'UserController@delete']);
 
 		Route::post('delete-ajax',  ['as' => 'delete_list_option_path_ajax', 'uses' => 'UserController@delete_ajax']);
-		/**
-		 * THE ACTION USE MEDTHODS OF Illuminate\Foundation\Auth\SendsPasswordResetEmails TRAIT
-		 */
+	
 		Route::get('forgot-password',  ['as' => 'forgot_pass_path', 'uses' => 'ExtendUserController\ForgotPasswordController@showLinkRequestForm']);
 		Route::post('forgot-password',  ['as' => 'forgot_pass_path', 'uses' => 'ExtendUserController\ForgotPasswordController@sendResetLinkEmail']);
 

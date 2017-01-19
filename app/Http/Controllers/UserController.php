@@ -104,19 +104,24 @@ class UserController extends Controller
          */
         $nameOrEmail = 'name';
         $verifyUserParentActive = true;
-        if (filter_var($request->username, FILTER_VALIDATE_EMAIL)) {
+        if (filter_var($request->username, FILTER_VALIDATE_EMAIL))
+        {
             $nameOrEmail = 'email';            
-            $userExist = User::whereEmail($request->username)->first();
-            if($userExist->role_id == 3 || $userExist->role_id == 4)
-            {
-                $verifyUserParentActive = $this->checkUserParentActive($userExist->parent_id);
-            }
+            $userExist = User::whereEmail($request->username)->first();            
         }else{
-            $userExist = User::whereName($request->username)->first();
+            $userExist = User::whereName($request->username)->first();          
+        }
+
+        if($userExist)
+        {
             if($userExist->role_id == 3 || $userExist->role_id == 4)
             {
                 $verifyUserParentActive = $this->checkUserParentActive($userExist->parent_id);
             }
+        }
+        else
+        {
+            $verifyUserParentActive = false;
         }
 
         if($verifyUserParentActive == true)

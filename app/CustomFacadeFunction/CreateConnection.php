@@ -25,7 +25,8 @@ class CreateConnection
 		
 	    if($this->checkDBUserExist($idUser) == false)
 	    {	    	
-	    	return DB::statement('CREATE SCHEMA '.$this->getNameDatabaseUser($idUser).' CHARACTER SET utf8 COLLATE utf8_general_ci;');
+	    	//return DB::statement('CREATE SCHEMA '.$this->getNameDatabaseUser($idUser).' CHARACTER SET utf8 COLLATE utf8_general_ci;');
+	    	return DB::getConnection()->statement('CREATE DATABASE :schema', ['schema' => $this->getNameDatabaseUser($idUser)]);
 	    	//return DB::statement('GRANT ALL PRIVILEGES ON '.$this->getNameDatabaseUser($idUser).'.* TO "'.config('database.connections.mysql.username').'"@"%"');
 	    }
 	    return false;

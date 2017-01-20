@@ -19,15 +19,8 @@ class CreateConnection
 	 * @return bool
 	 */
 	public function createSchema($idUser)
-	{
-	    // We will use the `statement` method from the connection class so that
-	    // we have access to parameter binding.
-		
-	    if($this->checkDBUserExist($idUser) == false)
-	    {	    	
-	    	return DB::statement('CREATE SCHEMA '.$this->getNameDatabaseUser($idUser).' CHARACTER SET utf8 COLLATE utf8_general_ci;');
-	    }
-	    return false;
+	{			
+		return DB::statement('CREATE DATABASE IF NOT EXISTS '.$this->getNameDatabaseUser($idUser).' CHARACTER SET utf8 COLLATE utf8_general_ci;');
 	}
 
 	public function createTable($idUser)
@@ -47,33 +40,16 @@ class CreateConnection
         $nameDatabase = '';
         if($idUseParam > 0)
         {        	
-        	if($this->checkDBUserExist($idUseParam))
-        	{
-        		$nameDatabase = $this->getNameDatabaseUser($idUseParam);
-        	}
-        	
+        	$nameDatabase = $this->getNameDatabaseUser($idUseParam);
         }else{
         	$currentUser = Auth::user();
+
         	/**
         	 * JUST GET USER IS NOT SUPER ADMIN TO CREATE NEW CONNECTION
         	 */
-	        if($currentUser->id > 0 && $currentUser->role_id != 1)
-	        {	        	
-	        	/**
-	        	 * IF USER IS SUB MANAGER OR NORMAL USER, CAN NOT GET DATABASE FOR NEW CONNECTION, NEED RECURSIVE GET PARENT ID USER TO GET DATABASE
-	        	 */
-	        	if($this->checkDBUserExist($currentUser->id) == false)
-	        	{	        		
-	        		if($this->checkDBUserExist($currentUser->parent_id))
-	        		{
-	        			$nameDatabase = $this->getNameDatabaseUser($idUserManagerHasDB);
-	        		}	        		
-	        	}
-	        	else
-	        	{
-	        		$nameDatabase = $this->getNameDatabaseUser($currentUser->id);
-	        	}
-
+	        if($currentUser->id > 0)
+	        {	        
+	        	$nameDatabase = $this->getNameDatabaseUser($currentUser->id);
 	        }//END if($currentUser->id > 0 && $currentUser->role_id == 2)
         }
        
@@ -105,21 +81,4 @@ class CreateConnection
     public function getNameDatabaseUser($idUser){
     	return env('PREFIX_DB_USER', 'express_').$idUser;
     }
-
-    public function checkDBUserExist(&$idUser){    	
-    	if($idUser > 0){    		
-    		$checkDBExist = DB::select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '".$this->getNameDatabaseUser($idUser)."'");
-    		if(count($checkDBExist) > 0)
-    		{
-    			return true;
-    		}else
-    		{
-    			$userExist = User::whereId($idUser)->first(); 
-    			$idParent = $userExist->parent_id;
-    			$this->checkDBUserExist($idParent);
-    		}    		
-    	}
-    	return false; 
-    }
-
 }

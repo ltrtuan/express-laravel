@@ -356,9 +356,8 @@ class UserController extends Controller
 
     public function delete(User $user){      
         if($user->role_id == 2)
-        {            
-            if(CreateConnection::checkDBUserExist($user->id))
-                DB::statement('DROP DATABASE '.CreateConnection::getNameDatabaseUser($user->id));
+        {        
+            DB::statement('DROP DATABASE IF EXISTS '.CreateConnection::getNameDatabaseUser($user->id));
         }      
     	$user->delete();
     	return redirect()->route('list_users_path');

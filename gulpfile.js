@@ -29,6 +29,7 @@ elixir((mix) => {
     mix.scripts([
         'app.js',
         'ajax-helper.js',
+        'functions.js',
     ], '', 'public/js');
 
    	mix.webpack('app.js');

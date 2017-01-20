@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ListOption as ListOption;
-use App\Http\Requests\UpdateOptionChildRequest;
 use App\Http\Requests\CreateOptionChildRequest;
 
 class ListOptionController extends Controller
@@ -32,6 +31,7 @@ class ListOptionController extends Controller
     {       
         $newOption = new ListOption;
         $newOption->name = $request->name_option;
+        $newOption->parent_id = $request->parent_id;
         $newOption->save();
 
         if($newOption->id > 0)    
@@ -43,8 +43,8 @@ class ListOptionController extends Controller
     }
 
     public function delete(ListOption $optionParent, Request $request){
-    	$listIdOptionChild = $request->input('id_option');
-    	$result = ListOption::destroy($listIdOptionChild);
+    	$listIdOptionChild = $request->input('id_option_delete');      
+    	$result = ListOption::destroy(explode(',', $listIdOptionChild));
     	if($result > 0)    
     		$request->session()->flash('alert-success', trans('general.delete_success',['field' => trans('option.option')]));
     	else
@@ -52,8 +52,8 @@ class ListOptionController extends Controller
     	return redirect()->route('create_list_option_child_path', $optionParent->id);
     }
 
-    public function update(ListOption $optionParent, UpdateOptionChildRequest $request){
-    	$listOptionChild = $request->input('name_option');    	
+    public function update(ListOption $optionParent, Request $request){
+    	$listOptionChild = $request->input('name_option_update');
     	$result = false;
     	if(count($listOptionChild) > 0)
     	{
@@ -61,8 +61,11 @@ class ListOptionController extends Controller
 	           $optionExist = ListOption::whereId($idOption)->first();
 	           if($optionExist)
 	           {	                
-	                $optionExist->name = $nameOption;
-	                $result = $optionExist->save();	              
+	                if($nameOption != '')
+                    {
+                        $optionExist->name = $nameOption;
+                        $result = $optionExist->save();
+                    }
 	           }
 	        }
     	}

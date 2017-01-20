@@ -7,14 +7,14 @@
     {{ AppHelper::showAlertFlashMessage($session, array('alert-success','alert-danger')) }}
 
    
-    @if($optionParent->id > 0)
-      {!! Form::open(['route' => ['edit_option_child_path', $optionParent->id],'method' => 'PATCH']) !!}
+    @if($optionParent->id > 0)      
+      {!! Form::open(['route' => ['edit_option_child_path', $optionParent->id],'method' => 'PATCH', 'id' => 'form-update-child-option']) !!}
         <table class="table table-striped">
           <thead>
             <tr>
               <th>#</th>
               <th>Name</th>             
-              <th><a role="button" class="btn btn-danger btn-sm" href="#" id="delete-option-btn">Delete</a></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -24,8 +24,7 @@
             <tr>
               <th scope="row">{{ $i }}</th>
               <td>
-                <input type="text" name="name_option[]" class="form-control" value="<?php echo $option->name?>" />              
-                {!! $errors->first('name_option.8','<span class="error-input">:message</span>')  !!}
+                {!! Form::text('name_option_update['.$option->id.']', $option->name, ['class'=>'form-control']) !!}
               </td>
               
               <td>
@@ -40,13 +39,21 @@
             </tr>
             @endforeach
           </tbody>
-        </table>
 
-        @if(count($optionChild) > 0)
-        <div class="clearfix">          
-          {!! Form::submit('Update', ['class' => 'btn btn-primary float-lg-right']) !!}
-        </div>          
-        @endif
+          @if(count($optionChild) > 0)
+          <tfoot>
+            <tr>
+              <td colspan="2">                     
+                {!! Form::submit('Update', ['class' => 'btn btn-primary mx-auto', 'style' => 'width:320px;display:block']) !!}              
+              </td>
+              <td>
+                <a role="button" class="btn btn-danger btn-sm" href="#" id="delete-option-btn">Delete</a>
+              </td>
+            </tr>
+          </tfoot>
+          @endif
+
+        </table>
 
       {!! Form::close() !!}
 
@@ -66,7 +73,7 @@
       {!! Form::close() !!}
 
       <!--  DELETE FORM -->
-      {!! Form::open(['route' => ['delete_option_child_path', $optionParent->id],'method' => 'DELETE']) !!}
+      {!! Form::open(['route' => ['delete_option_child_path', $optionParent->id],'method' => 'DELETE', 'id' => 'form-delete-option']) !!}
          {{ Form::hidden('id_option_delete', '') }}
       {!! Form::close() !!}
     @else

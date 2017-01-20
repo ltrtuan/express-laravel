@@ -27,4 +27,11 @@ class CreateOptionChildRequest extends FormRequest
             'name_option' => ['required'],           
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name_option.required'  => trans('general.field_required', ['field' => trans('option.name_option')]),
+        ];
+    }
 }

@@ -14,5 +14,5 @@ return [
     */
 
     'option' => 'Option',
-    'option' => 'Name option',
+    'name_option' => 'Name option',
 ];

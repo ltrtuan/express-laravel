@@ -15,7 +15,6 @@
       </form>
       <div class="clearfix"></div>
 
-      {!! Form::open(['data-remote', 'route' => ['delete_list_option_path_ajax'],'method' => 'POST']) !!}
         <table class="table table-striped">
           <thead>
             <tr>
@@ -45,11 +44,7 @@
             @endforeach
           </tbody>
         </table>
-
-      
-        <a role="button" class="btn btn-danger btn-sm float-lg-right" href="#" id="delete-user-btn">Delete</a>
-        
-      {!! Form::close() !!}
+     
       {{ $listOption->links() }}
 
     @else

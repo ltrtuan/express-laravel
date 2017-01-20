@@ -84,6 +84,6 @@ class CreateConnection
     }
 
     public function getNameDatabaseUser($idUser){
-    	return env('PREFIX_DB_USER', 'express_').$idUser;
+    	return env('PREFIX_DB_USER', 'express_client_').$idUser;
     }
 }

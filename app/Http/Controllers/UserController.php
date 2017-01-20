@@ -362,7 +362,11 @@ class UserController extends Controller
     public function delete(User $user){      
         if($user->role_id == 2)
         {        
-            DB::statement('DROP DATABASE IF EXISTS '.CreateConnection::getNameDatabaseUser($user->id));
+            try { 
+                DB::statement('DROP DATABASE '.CreateConnection::getNameDatabaseUser($user->id));
+            } catch(\Illuminate\Database\QueryException $ex){ 
+                
+            }
         }      
     	$user->delete();
     	return redirect()->route('list_users_path');
@@ -376,8 +380,11 @@ class UserController extends Controller
            {
                 if($userExist->role_id == 2)
                 {
-                    if(CreateConnection::checkDBUserExist($idUser))
-                        DB::statement('DROP DATABASE '.CreateConnection::getNameDatabaseUser($idUser));
+                    try { 
+                        DB::statement('DROP DATABASE '.CreateConnection::getNameDatabaseUser($user->id));
+                    } catch(\Illuminate\Database\QueryException $ex){ 
+                        
+                    }                
                 }
            }
         }

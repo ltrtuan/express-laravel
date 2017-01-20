@@ -77,15 +77,13 @@ Route::group(['middleware' => 'web'], function (){
 	    Route::get('/',  ['as' => 'list_list_option_path', 'uses' => 'ListOptionController@index']);
 
 		Route::get('create/{optionParent}',  ['as' => 'create_list_option_child_path', 'uses' => 'ListOptionController@create']);
-		Route::post('create/{optionParent}',  ['as' => 'create_list_option_child_path', 'uses' => 'ListOptionController@save']);
+		Route::post('create/{optionParent}',  ['as' => 'create_list_option_child_path', 'uses' => 'ListOptionController@save']);		
 
-		Route::get('edit/{user}',  ['as' => 'edit_list_option_path', 'uses' => 'UserController@showEditForm']);
-		Route::patch('edit/{user}',  ['as' => 'edit_list_option_path', 'uses' => 'UserController@updateEdit']);
+		Route::delete('delete/{optionParent}',  ['as' => 'delete_option_child_path', 'uses' => 'ListOptionController@delete']);
 
-		Route::delete('delete/{user}',  ['as' => 'delete_user_path', 'uses' => 'UserController@delete']);
+		Route::patch('update/{optionParent}',  ['as' => 'edit_option_child_path', 'uses' => 'ListOptionController@update']);
 
-		Route::post('delete-ajax',  ['as' => 'delete_list_option_path_ajax', 'uses' => 'UserController@delete_ajax']);
-	
+		
 		Route::get('forgot-password',  ['as' => 'forgot_pass_path', 'uses' => 'ExtendUserController\ForgotPasswordController@showLinkRequestForm']);
 		Route::post('forgot-password',  ['as' => 'forgot_pass_path', 'uses' => 'ExtendUserController\ForgotPasswordController@sendResetLinkEmail']);
 

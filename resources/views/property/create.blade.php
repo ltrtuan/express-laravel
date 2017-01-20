@@ -15,10 +15,6 @@
         </div>
 
 
-
-
-
-
         <div class="form-group">
             {!! Form::label('name','Username:') !!}
             {!! Form::text('name', null, ['class' => 'form-control']) !!}

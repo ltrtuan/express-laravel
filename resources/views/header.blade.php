@@ -15,15 +15,32 @@
      
     </head>
     <body>
-        <header>
-          <div class="container">
-            <div id="logo">
-                <a href="{{ url('/') }}">expresscorporatehousing.com</a>
-            </div>
-          </div>
-        </header>
-      
-        @include('partials/nav')
-        
-        <div id="main-content">
-            <div class="container">
+        <div id="body-inner" class="container-fluid">
+            <header>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div id="logo">
+                            <a href="{{ url('/') }}">expresscorporatehousing.com</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-10">
+                        @if(!is_null($current_user))
+                            <span class="navbar-text float-lg-right">
+                                Hello: <a href="{{ route('profile_path') }}">{!! $current_user->name !!}</a> - <a href="{{ route('logout_path') }}">Logout</a>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+               
+               
+            </header>
+          
+            <div class="row" id="main-row">
+                
+                <div class="col-md-2">
+                    @include('partials/nav')
+                </div>                
+
+                <div class="col-md-10">            
+                    <div id="main-content">

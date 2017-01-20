@@ -249,6 +249,11 @@ class UserController extends Controller
 	            		}
             		}            	
             	}
+                else
+                {
+                    $request->session()->flash('alert-danger', trans('users.create_user_fail'));  
+                    return redirect()->route('register_path');
+                }
         	}
 
             

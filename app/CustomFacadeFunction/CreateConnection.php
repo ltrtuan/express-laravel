@@ -23,7 +23,7 @@ class CreateConnection
 		try { 
 		  	return DB::statement('CREATE DATABASE IF NOT EXISTS '.$this->getNameDatabaseUser($idUser).' CHARACTER SET utf8 COLLATE utf8_general_ci;');
 		} catch(\Illuminate\Database\QueryException $ex){ 
-		  	return $ex->getMessage(); 
+		  	return false;
 		  // Note any method of class PDOException can be called on $ex.
 		}
 
